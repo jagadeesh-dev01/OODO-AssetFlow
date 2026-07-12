@@ -10,8 +10,8 @@ const departmentSchema = new mongoose.Schema(
     },
 
     head: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
+        required: true,
         default: null
     },
 
