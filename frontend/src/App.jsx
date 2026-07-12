@@ -1,3 +1,6 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import OrganizationSetup from './pages/OrganizationSetup';
@@ -10,32 +13,24 @@ import AssetAudit from './pages/AssetAudit';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 
-function App() {
+export default function App() {
   return (
-    <div style={{ paddingBottom: '50px' }}>
-      <Login />
-      <hr style={{ margin: '40px 0' }} />
-      <Dashboard />
-      <hr style={{ margin: '40px 0' }} />
-      <OrganizationSetup />
-      <hr style={{ margin: '40px 0' }} />
-      <AssetDirectory />
-      <hr style={{ margin: '40px 0' }} />
-      <AssetRegistration />
-      <hr style={{ margin: '40px 0' }} />
-      <AssetAllocation />
-      <hr style={{ margin: '40px 0' }} />
-      <ResourceBooking />
-      <hr style={{ margin: '40px 0' }} />
-      <MaintenanceManagement />
-      <hr style={{ margin: '40px 0' }} />
-      <AssetAudit />
-      <hr style={{ margin: '40px 0' }} />
-      <Reports />
-      <hr style={{ margin: '40px 0' }} />
-      <Settings />
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/org-setup" element={<OrganizationSetup />} />
+        <Route path="/directory" element={<AssetDirectory />} />
+        <Route path="/register" element={<AssetRegistration />} />
+        <Route path="/allocation" element={<AssetAllocation />} />
+        <Route path="/booking" element={<ResourceBooking />} />
+        <Route path="/maintenance" element={<MaintenanceManagement />} />
+        <Route path="/audit" element={<AssetAudit />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
