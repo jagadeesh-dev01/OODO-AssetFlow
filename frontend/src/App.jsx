@@ -8,6 +8,7 @@ import ResourceBooking from './pages/ResourceBooking';
 import MaintenanceManagement from './pages/MaintenanceManagement';
 import AssetAudit from './pages/AssetAudit';
 import Reports from './pages/Reports';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
       <AssetAudit />
       <hr style={{ margin: '40px 0' }} />
       <Reports />
+      <hr style={{ margin: '40px 0' }} />
+      <Settings />
     </div>
   );
 }
