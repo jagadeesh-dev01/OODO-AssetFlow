@@ -1,8 +1,9 @@
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import OrganizationSetup from './pages/OrganizationSetup';
-import AssetRegistration from './pages/AssetRegistration';
 import AssetDirectory from './pages/AssetDirectory';
+import AssetRegistration from './pages/AssetRegistration';
+import AssetAllocation from './pages/AssetAllocation';
 
 function App() {
   return (
@@ -12,8 +13,12 @@ function App() {
       <Dashboard />
       <hr style={{ margin: '40px 0' }} />
       <OrganizationSetup />
-      <AssetRegistration />
+      <hr style={{ margin: '40px 0' }} />
       <AssetDirectory />
+      <hr style={{ margin: '40px 0' }} />
+      <AssetRegistration />
+      <hr style={{ margin: '40px 0' }} />
+      <AssetAllocation />
     </div>
   );
 }
