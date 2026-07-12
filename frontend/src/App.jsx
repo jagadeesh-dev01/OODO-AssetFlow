@@ -4,6 +4,7 @@ import OrganizationSetup from './pages/OrganizationSetup';
 import AssetDirectory from './pages/AssetDirectory';
 import AssetRegistration from './pages/AssetRegistration';
 import AssetAllocation from './pages/AssetAllocation';
+import ResourceBooking from './pages/ResourceBooking';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
       <AssetRegistration />
       <hr style={{ margin: '40px 0' }} />
       <AssetAllocation />
+      <hr style={{ margin: '40px 0' }} />
+      <ResourceBooking />
     </div>
   );
 }
