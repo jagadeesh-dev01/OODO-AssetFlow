@@ -6,6 +6,7 @@ import AssetRegistration from './pages/AssetRegistration';
 import AssetAllocation from './pages/AssetAllocation';
 import ResourceBooking from './pages/ResourceBooking';
 import MaintenanceManagement from './pages/MaintenanceManagement';
+import AssetAudit from './pages/AssetAudit';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
       <ResourceBooking />
       <hr style={{ margin: '40px 0' }} />
       <MaintenanceManagement />
+      <hr style={{ margin: '40px 0' }} />
+      <AssetAudit />
     </div>
   );
 }
