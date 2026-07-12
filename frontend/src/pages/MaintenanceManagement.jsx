@@ -1,38 +1,97 @@
+import { 
+  Container, 
+  Typography, 
+  Box, 
+  Paper, 
+  Card, 
+  CardContent, 
+  Chip 
+} from '@mui/material';
+
 export default function MaintenanceManagement() {
   const columns = [
-    { title: 'Pending', cards: [{ id: 'AF-0062', desc: 'Projector bulb\nnot turning on', bg: '#e9ecef' }] },
-    { title: 'Approved', cards: [{ id: 'Af-003', desc: 'ac unit \nnoisy compresor', bg: '#e9ecef' }] },
-    { title: 'Technician assigned', cards: [{ id: 'AF-0078', desc: 'forlift\ntech: R varma', bg: '#e9ecef' }] },
-    { title: 'in progress', cards: [{ id: 'AF-897', desc: 'Printer Jam\nparts ordered', bg: '#e9ecef' }] },
-    { title: 'Resolved', cards: [{ id: 'AF-873', desc: 'Chair repair\nresolved 7 Jul', bg: '#b2f2bb' }] },
+    {
+      title: 'Pending',
+      cards: [{ id: 'AF-0062', desc: 'Projector bulb\nnot turning on', priority: 'High' }]
+    },
+    {
+      title: 'Approved',
+      cards: [{ id: 'AF-003', desc: 'AC unit\nnoisy compressor', priority: 'Medium' }]
+    },
+    {
+      title: 'Tech Assigned',
+      cards: [{ id: 'AF-0078', desc: 'Forklift\nTech: R Varma', priority: 'High' }]
+    },
+    {
+      title: 'In Progress',
+      cards: [{ id: 'AF-897', desc: 'Printer Jam\nparts ordered', priority: 'Low' }]
+    },
+    {
+      title: 'Resolved',
+      cards: [{ id: 'AF-873', desc: 'Chair repair\nresolved 7 Jul', priority: 'Low' }]
+    },
   ];
 
   return (
-    <div style={{ padding: '20px', marginTop: '20px', borderTop: '2px solid #eee' }}>
-      <h2>Maintenance Management</h2>
-      <p style={{ color: '#666', fontSize: '14px', marginBottom: '20px' }}>
-        (approval workflow as kanban board)
-      </p>
+    <Container maxWidth="xl" sx={{ mt: 4, mb: 8 }}>
+      <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold' }}>
+        Maintenance Board
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        Drag and drop asset tickets to update maintenance status.
+      </Typography>
 
-      <div style={{ display: 'flex', gap: '15px', overflowX: 'auto', paddingBottom: '20px' }}>
+      <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2, minHeight: '60vh' }}>
         {columns.map((col, idx) => (
-          <div key={idx} style={{ flex: '0 0 160px', border: '1px solid #ccc', borderRadius: '6px', padding: '10px', backgroundColor: '#f8f9fa' }}>
-            <h4 style={{ margin: '0 0 15px 0', fontSize: '14px', borderBottom: '2px solid #eee', paddingBottom: '8px' }}>
-              {col.title}
-            </h4>
+          <Paper 
+            key={idx} 
+            elevation={0} 
+            sx={{ 
+              minWidth: 280, 
+              bgcolor: '#f4f6f8', 
+              borderRadius: 2, 
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              borderTop: '4px solid #1e1e1e'
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                {col.title}
+              </Typography>
+              <Chip label={col.cards.length} size="small" sx={{ fontWeight: 'bold', bgcolor: '#e0e0e0' }} />
+            </Box>
+
             {col.cards.map((card, cardIdx) => (
-              <div key={cardIdx} style={{ backgroundColor: card.bg, padding: '12px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px', whiteSpace: 'pre-line' }}>
-                <strong>{card.id}</strong><br/>
-                {card.desc}
-              </div>
+              <Card key={cardIdx} elevation={2} sx={{ borderRadius: 2, cursor: 'grab', '&:active': { cursor: 'grabbing' } }}>
+                <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                      {card.id}
+                    </Typography>
+                    <Chip 
+                      label={card.priority} 
+                      size="small" 
+                      sx={{ 
+                        height: 20, 
+                        fontSize: '0.7rem',
+                        fontWeight: 'bold',
+                        bgcolor: card.priority === 'High' ? '#ffebee' : card.priority === 'Medium' ? '#fff8e1' : '#f1f8e9',
+                        color: card.priority === 'High' ? '#c62828' : card.priority === 'Medium' ? '#f57f17' : '#2e7d32'
+                      }} 
+                    />
+                  </Box>
+                  <Typography variant="body2" color="text.primary" sx={{ whiteSpace: 'pre-line' }}>
+                    {card.desc}
+                  </Typography>
+                </CardContent>
+              </Card>
             ))}
-          </div>
+          </Paper>
         ))}
-      </div>
-      
-      <p style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
-        Approving a card moves the asset to under maintenance, resolving return it to availble
-      </p>
-    </div>
+      </Box>
+    </Container>
   );
 }

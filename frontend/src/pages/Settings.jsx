@@ -1,40 +1,84 @@
+import { 
+  Container, 
+  Typography, 
+  Paper, 
+  Box, 
+  Avatar, 
+  Divider, 
+  Switch, 
+  FormControlLabel, 
+  Button,
+  TextField,
+  Grid
+} from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
+
 export default function Settings() {
   return (
-    <div style={{ padding: '20px', marginTop: '20px', borderTop: '2px solid #eee' }}>
-      <h2>Settings & Profile</h2>
-      <p style={{ color: '#666', fontSize: '14px', marginBottom: '20px' }}>
-        (Manage user preferences, notifications, and system configurations)
-      </p>
+    <Container maxWidth="md" sx={{ mt: 4, mb: 8 }}>
+      <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
+        Settings & Profile
+      </Typography>
+      
+      <Paper elevation={3} sx={{ borderRadius: 2, p: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 4 }}>
+          <Avatar sx={{ width: 80, height: 80, bgcolor: 'primary.main', fontSize: 32, fontWeight: 'bold' }}>
+            AU
+          </Avatar>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Admin User</Typography>
+            <Typography variant="body1" color="text.secondary">System Administrator</Typography>
+            <Typography variant="body2" color="text.secondary">admin@assetflow.com</Typography>
+          </Box>
+        </Box>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '400px' }}>
-        <div style={{ backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', border: '1px solid #ccc' }}>
-          <h4 style={{ margin: '0 0 10px 0' }}>Profile Information</h4>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}><strong>Name:</strong> Admin User</p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}><strong>Role:</strong> System Administrator</p>
-          <p style={{ margin: '5px 0', fontSize: '14px' }}><strong>Email:</strong> admin@assetflow.com</p>
-        </div>
+        <Divider sx={{ mb: 4 }} />
 
-        <div>
-          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px', fontSize: '14px' }}>System Theme</label>
-          <select style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}>
-            <option>System Default</option>
-            <option>Light Mode</option>
-            <option>Dark Mode</option>
-          </select>
-        </div>
+        <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
+          System Preferences
+        </Typography>
 
-        <div>
-          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px', fontSize: '14px' }}>Alert Preferences</label>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '5px' }}>
-            <input type="checkbox" id="emailNotif" defaultChecked />
-            <label htmlFor="emailNotif" style={{ fontSize: '14px' }}>Enable email notifications for transfer requests</label>
-          </div>
-        </div>
+        <Grid container spacing={4} sx={{ mb: 4 }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              select
+              fullWidth
+              label="System Theme"
+              defaultValue="System Default"
+              SelectProps={{ native: true }}
+            >
+              <option>System Default</option>
+              <option>Light Mode</option>
+              <option>Dark Mode</option>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
+              <FormControlLabel 
+                control={<Switch defaultChecked color="primary" />} 
+                label="Email alerts for transfers" 
+              />
+              <FormControlLabel 
+                control={<Switch color="primary" />} 
+                label="Weekly auto-audit reports" 
+              />
+            </Box>
+          </Grid>
+        </Grid>
 
-        <button style={{ padding: '12px', backgroundColor: '#1e1e1e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', marginTop: '10px' }}>
-          Save Preferences
-        </button>
-      </div>
-    </div>
+        <Divider sx={{ mb: 4 }} />
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button 
+            variant="contained" 
+            size="large"
+            startIcon={<SaveIcon />}
+            sx={{ fontWeight: 'bold', px: 4 }}
+          >
+            Save Preferences
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
