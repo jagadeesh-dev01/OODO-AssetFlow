@@ -1,61 +1,98 @@
 import { useState } from 'react';
+import { 
+  Container, 
+  Box, 
+  Typography, 
+  TextField, 
+  Button, 
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Avatar
+} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('Employee');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // This will integrate with your teammate's authentication API later
-    console.log("Login attempted with:", email);
+    alert(`Logged in as ${role} with ${email}`);
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>AssetFlow - Login</h2>
-      
-      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <div>
-          <label style={{ fontWeight: 'bold' }}>Email</label>
-          <input 
-            type="email" 
-            placeholder="name@company.com" 
+    <Container component="main" maxWidth="xs">
+      <Paper 
+        elevation={4} 
+        sx={{
+          marginTop: 8,
+          marginBottom: 8,
+          padding: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          borderRadius: 2
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" sx={{ mb: 3, fontWeight: 'bold' }}>
+          AssetFlow Login
+        </Typography>
+        <Box component="form" onSubmit={handleLogin} sx={{ mt: 1, width: '100%' }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: '100%', padding: '10px', marginTop: '5px', boxSizing: 'border-box' }}
           />
-        </div>
-        
-        <div>
-          <label style={{ fontWeight: 'bold' }}>Password</label>
-          <input 
-            type="password" 
-            placeholder="**********" 
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '10px', marginTop: '5px', boxSizing: 'border-box' }}
           />
-        </div>
-        
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <a href="#" style={{ fontSize: '14px', color: '#0066cc', textDecoration: 'none' }}>Forgot password?</a>
-        </div>
-        
-        <button type="submit" style={{ padding: '12px', backgroundColor: '#1e1e1e', color: 'white', cursor: 'pointer', border: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
-          Sign In
-        </button>
-      </form>
-      
-      <div style={{ marginTop: '25px', textAlign: 'center', borderTop: '1px solid #eee', paddingTop: '15px' }}>
-        <p style={{ fontSize: '14px' }}>
-          New here? <a href="#" style={{ color: '#0066cc', textDecoration: 'none', fontWeight: 'bold' }}>Create Account</a>
-        </p>
-        <p style={{ color: '#666', fontSize: '12px', marginTop: '5px' }}>
-          Sign up creates an employee account.<br />Admin roles assigned later.
-        </p>
-      </div>
-    </div>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="role-label">Role</InputLabel>
+            <Select
+              labelId="role-label"
+              id="role-select"
+              value={role}
+              label="Role"
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <MenuItem value="Employee">Employee</MenuItem>
+              <MenuItem value="Admin">Admin</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            size="large"
+            sx={{ mt: 3, mb: 2, py: 1.5, fontWeight: 'bold' }}
+          >
+            Sign In
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }

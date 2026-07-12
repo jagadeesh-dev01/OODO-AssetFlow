@@ -1,75 +1,88 @@
 import { useState } from 'react';
+import { 
+  Container, 
+  Typography, 
+  Paper, 
+  Box, 
+  Tabs, 
+  Tab, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow,
+  Button,
+  Chip
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function OrganizationSetup() {
-  const [activeTab, setActiveTab] = useState('Departments');
-
-  // Hardcoded initial state to match the design document
+  const [tabValue, setTabValue] = useState(1); // Defaults to the "Departments" tab
+  
   const departments = [
-    { id: 1, name: 'Engineering', head: 'aditi rao', parent: '--', status: 'Active' },
-    { id: 2, name: 'Facilities', head: 'rohan mehta', parent: '--', status: 'Active' },
-    { id: 3, name: 'Field ops (east)', head: 'sana iqbal', parent: 'Field Ops', status: 'Inactive' },
+    { name: 'Engineering', head: 'Sarah Connor', parent: '-', status: 'Active' },
+    { name: 'Human Resources', head: 'John Smith', parent: '-', status: 'Active' },
+    { name: 'IT Support', head: 'Mike Chang', parent: 'Engineering', status: 'Active' }
   ];
 
   return (
-    <div style={{ padding: '20px', marginTop: '20px', borderTop: '2px solid #eee' }}>
-      <h2>Organization setup (Admin only)</h2>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+      <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
+        Organization Setup
+      </Typography>
       
-      <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px', marginBottom: '20px' }}>
-        {['Employee', 'Departments', 'Categories'].map(tab => (
-          <span 
-            key={tab} 
-            onClick={() => setActiveTab(tab)}
-            style={{ 
-              cursor: 'pointer', 
-              fontWeight: activeTab === tab ? 'bold' : 'normal',
-              textDecoration: activeTab === tab ? 'underline' : 'none'
-            }}
+      <Paper elevation={3} sx={{ borderRadius: 2, overflow: 'hidden' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', bgcolor: '#f8f9fa' }}>
+          <Tabs 
+            value={tabValue} 
+            onChange={(e, val) => setTabValue(val)} 
+            textColor="primary" 
+            indicatorColor="primary"
+            sx={{ px: 2 }}
           >
-            {tab}
-          </span>
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-        <h3>{activeTab}</h3>
-        <button style={{ padding: '8px', cursor: 'pointer' }}>+ Add</button>
-      </div>
-
-      {activeTab === 'Departments' && (
-        <>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #ccc', paddingBottom: '10px' }}>
-                <th style={{ padding: '10px' }}>Department</th>
-                <th>Head</th>
-                <th>Parent Dept</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {departments.map((dept) => (
-                <tr key={dept.id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '10px' }}>{dept.name}</td>
-                  <td>{dept.head}</td>
-                  <td>{dept.parent}</td>
-                  <td>
-                    <span style={{ 
-                      color: dept.status === 'Active' ? 'green' : 'red',
-                      backgroundColor: dept.status === 'Active' ? '#e6ffed' : '#ffe3e3',
-                      padding: '4px 8px', borderRadius: '4px', fontSize: '12px'
-                    }}>
-                      {dept.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p style={{ fontSize: '12px', color: '#666', marginTop: '15px' }}>
-            Editing a department here also drives the picklist in Screen 4 & 5
-          </p>
-        </>
-      )}
-    </div>
+            <Tab label="Employees" sx={{ fontWeight: 'bold' }} />
+            <Tab label="Departments" sx={{ fontWeight: 'bold' }} />
+            <Tab label="Categories" sx={{ fontWeight: 'bold' }} />
+          </Tabs>
+        </Box>
+        
+        <Box sx={{ p: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+              Departments Directory
+            </Typography>
+            <Button variant="contained" startIcon={<AddIcon />} sx={{ fontWeight: 'bold' }}>
+              Add Department
+            </Button>
+          </Box>
+          
+          <TableContainer variant="outlined" component={Paper} elevation={0}>
+            <Table>
+              <TableHead sx={{ bgcolor: '#f1f3f5' }}>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Department</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Head</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Parent Dept</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {departments.map((dept, index) => (
+                  <TableRow key={index} hover sx={{ cursor: 'pointer' }}>
+                    <TableCell>{dept.name}</TableCell>
+                    <TableCell>{dept.head}</TableCell>
+                    <TableCell>{dept.parent}</TableCell>
+                    <TableCell>
+                      <Chip label={dept.status} color="success" size="small" sx={{ fontWeight: 'bold' }} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
