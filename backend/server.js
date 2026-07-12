@@ -1,5 +1,8 @@
 const departmentRoutes = require("./routes/departmentRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const assetRoutes = require("./routes/assetRoutes");
+const allocationRoutes = require("./routes/allocationRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const express = require("express");
 const dotenv = require("dotenv");
@@ -18,6 +21,9 @@ app.use(express.json());
 
 app.use("/api/departments", departmentRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/assets", assetRoutes);
+app.use("/api/allocations", allocationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
     res.json({
