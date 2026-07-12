@@ -6,7 +6,6 @@ import { loginUser } from '../services/api';
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '', role: 'Employee' });
   const [error, setError] = useState('');
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
